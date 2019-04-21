@@ -23,7 +23,7 @@
     </select>
 
     <select id="findUserInfoList" resultMap="userInfoResult">
-        select * from user
+        select u.*,p.* from user u, post p WHERE u.id=p.userid
     </select>
 
 </mapper>
