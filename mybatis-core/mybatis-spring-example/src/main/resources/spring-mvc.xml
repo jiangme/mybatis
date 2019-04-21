@@ -7,8 +7,6 @@
 
     <!--spring mvc configuration-->
 
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
-
     <!--扫描@Controller， MVC方面的各种注释 -->
     <context:component-scan base-package="com.jiang.controller" />
 

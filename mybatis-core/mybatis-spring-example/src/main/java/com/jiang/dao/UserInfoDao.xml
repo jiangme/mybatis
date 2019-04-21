@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.dao.UserInfoDao">
+
+    <!--一对多模型使用-->
+    <resultMap id="userInfoResult" type="com.jiang.pojo.UserInfo">
+        <id property="id" column="id" />
+        <result property="userName" column="username" />
+        <result property="mobile" column="mobile" />
+        <!--oneToMany-->
+        <!--userid from table post -->
+        <collection property="posts" ofType="com.jiang.pojo.PostInfo" column="userid">
+            <id property="id" column="post_id" javaType="int" jdbcType="INTEGER" />
+            <result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+            <result property="content" column="content" javaType="string" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <!--oneToMany-->
+    <select id="findUserInfo" resultMap="userInfoResult" parameterType="int">
+        select u.*,p.* from user u, post p WHERE u.id=p.userid and u.id=#{userId}
+    </select>
+
+    <select id="findUserInfoList" resultMap="userInfoResult">
+        select * from user
+    </select>
+
+</mapper>
