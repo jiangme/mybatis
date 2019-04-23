@@ -1,0 +1,8 @@
+# logger config
+logging:
+    level:
+        com.jiang: debug
+
+mybatis-plus:
+  # 扫描mapper.xml
+  mapper-locations: classpath:/mapper/*/*Mapper.xml

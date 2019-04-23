@@ -1,22 +1,16 @@
 package com.jiang.common;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -60,15 +54,21 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir") + "/mybatis-generator";
-        gc.setOutputDir(projectPath + ROOT_JAVA);
-        gc.setAuthor("ShiJiang");
-        gc.setOpen(false);
+        gc.setOutputDir(projectPath + ROOT_JAVA); // 生成文件输出目录
+        gc.setFileOverride(true); // 是否覆盖已有文件
+        gc.setAuthor("ShiJiang"); // 开发人员
+        gc.setOpen(false); // 是否打开输出目录
+        gc.setEntityName("%s"); // 实体名命名方式
+        gc.setMapperName("%sDao"); // mapper命名方式
+        gc.setServiceName("%sService");
+        gc.setServiceImplName("%sServiceImpl");
+        gc.setControllerName("%sController");
         mpg.setGlobalConfig(gc);
 
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/read_data?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/write_data?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -79,6 +79,10 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
         pc.setParent("com.jiang");
+        pc.setEntity("pojo");
+        pc.setController("controller");
+        pc.setService("service");
+        pc.setMapper("mapper");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -96,42 +100,38 @@ public class CodeGenerator {
         // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
+        //List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
+//        focList.add(new FileOutConfig(templatePath) {
+//            // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+//            @Override
+//            public String outputFile(TableInfo tableInfo) {
+//                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+//                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+//            }
+//        });
 
 
-        cfg.setFileOutConfigList(focList);
+        //cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 
 
         // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
-
+        //TemplateConfig templateConfig = new TemplateConfig();
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-//        templateConfig.setEntity("templates/entity2.java");
-//        templateConfig.setService("");
-//        templateConfig.setController("");
-
-        templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
+        // templateConfig.setEntity("com/jiang/pojo/entity2.java");
+        // templateConfig.setService("c");
+        //templateConfig.setController("");
+        //templateConfig.setXml(null);
+        //mpg.setTemplate(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("com.jiang.pojo");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setSuperControllerClass("com.jiang.controller");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);

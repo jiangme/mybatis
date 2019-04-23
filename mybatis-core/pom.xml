@@ -7,8 +7,10 @@
   <groupId>com.jiang</groupId>
   <artifactId>mybatis-core</artifactId>
   <version>1.0-SNAPSHOT</version>
+
   <modules>
     <module>mybatis-spring-example</module>
+    <module>mybatis-generator</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -131,6 +133,13 @@
       </dependency>
       <!-- log end -->
 
+
+      <!--mybatis  plugin-->
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus</artifactId>
+        <version>3.1.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
