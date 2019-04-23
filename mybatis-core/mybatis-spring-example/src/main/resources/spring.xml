@@ -52,13 +52,37 @@
 
 
     <!--  ========== 事务管理 =====================  -->
+    <!--
+       1、 定义TransactionManager
+       2、 事务定义 -> 目的：告诉框架要进行什么样的事务管理
+           可以定义些什么：
+
+            A：隔离级别 - isolation（事务之间的隔离程度）- 5：
+            DEFAULT： 使用数据库默认的隔离级别。
+            READ_UNCOMMITED: 最低隔离级别，另外一个事务可以看到这个事务未提交的数据。
+            READ_COMMIT: 保证一个事务修改的数据提交后才能被另外一个事务读取。
+            REPEATABLE_READ: 防止脏读， 不可重复读。
+            SERIALIZABLE： 花费代价最高最安全的事务隔离级别。
+
+            B：事务传播行为 - propagation - 7：
+            REQUIRED： 支持当前事务， 没有新建。
+            SUPPORTS： 支持当前事务， 如果没有当前事务， 以非事务的方式进行。
+            MANDATORY：必须存在事务， 如果不存在， 抛异常。
+            REQUIRES_NEW：需要新事物来运行，挂起前事务， 创建新事务。
+            NOT_SUPPORT: 一定以非事务运行， 存在事务， 挂起。
+            NEVER： 存在事务， 抛异常
+            NESTED：存在事务， 创建新事务嵌套进去
+
+       3、 AOP定义管理事务
+       4、 事务注解支持
+    -->
 
     <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
         <constructor-arg ref="dataSource" />
     </bean>
 
     
-    <!--事务控制-->
+    <!--2、事务定义-->
     <tx:advice id="txAdvice">
         <!--传播行为-->
         <tx:attributes>
@@ -81,12 +105,13 @@
         </tx:attributes>
     </tx:advice>
 
+    <!-- AOP管理事务 -->
     <aop:config>
         <aop:pointcut id="txPoint" expression="execution(* com.jiang.service..*.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint" />
     </aop:config>
 
-    <!--开启显示事务-->
+    <!-- 开启显示事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
 
