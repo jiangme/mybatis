@@ -1,5 +1,6 @@
 package com.jiang.sys.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
@@ -21,6 +22,9 @@ import lombok.experimental.Accessors;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId
+    private int id;
 
     /**
      * 姓名
