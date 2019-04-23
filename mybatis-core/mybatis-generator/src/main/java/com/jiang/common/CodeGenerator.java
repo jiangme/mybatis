@@ -1,5 +1,6 @@
 package com.jiang.common;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -54,15 +55,20 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir") + "/mybatis-generator";
-        gc.setOutputDir(projectPath + ROOT_JAVA); // 生成文件输出目录
-        gc.setFileOverride(true); // 是否覆盖已有文件
-        gc.setAuthor("ShiJiang"); // 开发人员
-        gc.setOpen(false); // 是否打开输出目录
-        gc.setEntityName("%s"); // 实体名命名方式
-        gc.setMapperName("%sDao"); // mapper命名方式
-        gc.setServiceName("%sService");
-        gc.setServiceImplName("%sServiceImpl");
-        gc.setControllerName("%sController");
+        gc.setOutputDir(projectPath + ROOT_JAVA) // 生成文件输出目录
+        .setFileOverride(true) // 是否覆盖已有文件
+        .setAuthor("LuoSJ") // 开发人员
+        .setOpen(false) // 是否打开输出目录
+        .setEntityName("%s") // 实体名命名方式
+        .setMapperName("%sDao") // mapper命名方式
+        .setServiceName("%sService")
+        .setServiceImplName("%sServiceImpl")
+        .setControllerName("%sController")
+        .setActiveRecord(true) // 是否支持AR模式
+        .setIdType(IdType.AUTO) // 主键策略
+        .setBaseResultMap(true) // 生成基本的resultMap
+        .setBaseColumnList(true) // 生成基本的SQL片段
+        ;
         mpg.setGlobalConfig(gc);
 
 
@@ -128,14 +134,15 @@ public class CodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
-        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setSuperEntityColumns("id");
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setCapitalMode(true) //全局大写命名
+        .setNaming(NamingStrategy.underline_to_camel)
+        .setColumnNaming(NamingStrategy.underline_to_camel)
+        .setEntityLombokModel(true)
+        .setRestControllerStyle(true)
+        .setInclude(scanner("表名，多个英文逗号分割").split(","))
+        .setSuperEntityColumns("id")
+        .setControllerMappingHyphenStyle(true)
+        .setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
