@@ -3,6 +3,7 @@ package com.jiang.common;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * @author Luosj
@@ -11,16 +12,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 
+    public static final String PATTERN = "yyyy.MM.dd hh:mm:ss";
+
     /**
      *
      *  保证每一个线程都获取到一个新的DateFormat实例
      *
      */
-    public static final ThreadLocal<DateFormat> sdfLocal = new ThreadLocal<DateFormat>(){
+    public static final ThreadLocal<DateFormat> SDF_LOCAL = new ThreadLocal<DateFormat>(){
 
         @Override
         protected DateFormat initialValue() {
-            return new SimpleDateFormat();
+            return new SimpleDateFormat(PATTERN);
         }
     };
 
@@ -31,8 +34,13 @@ public class DateUtils {
      *
      *
      */
-    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
 
+
+    public static String parseDate(Date date){
+        DateFormat dateFormat = SDF_LOCAL.get();
+        return dateFormat.format(date);
+    }
 
 }
 
