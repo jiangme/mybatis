@@ -21,7 +21,7 @@
         <setting name="useColumnLabel" value="true" />
 
         <!--允许jdbc生成主键， 需要驱动器支持， 如果设为true， 这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行。  default:false-->
-        <setting name="useGeneratedKey" value="false" />
+<!--        <setting name="useGeneratedKey" value="false" />-->
 
         <!-- 指定 MyBatis 如何自动映射 数据基表的列 NONE：不隐射　PARTIAL:部分  FULL:全部  -->
         <setting name="autoMappingBehavior" value="PARTIAL"/>
@@ -39,8 +39,5 @@
         <setting name="jdbcTypeForNull" value="NULL"/>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
-    
-    <typeAliases>
-        <typeAlias type="user" alias="com.jiang.pojo.User" />
-    </typeAliases>
+
 </configuration>

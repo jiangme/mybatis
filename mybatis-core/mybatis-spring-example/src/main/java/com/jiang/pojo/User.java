@@ -1,6 +1,7 @@
 package com.jiang.pojo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class User {
 
     private int id;

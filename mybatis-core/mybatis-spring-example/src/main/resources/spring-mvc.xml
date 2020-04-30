@@ -21,5 +21,9 @@
     <!--静态资源-->
     <mvc:resources mapping="/resources/**" location="/resources" />
 
+   <!--  定义拦截器  -->
+    <mvc:interceptors>
+        <bean class="com.jiang.core.interceptor.TestInterceptor" />
+    </mvc:interceptors>
 
 </beans>

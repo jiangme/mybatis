@@ -17,7 +17,7 @@
         <!--配置映射文件-->
         <property name="mapperLocations" value="classpath*:com/jiang/dao/*.xml" />
         <property name="databaseIdProvider" ref="vendorDatabaseIdProvider" />
-        <property name="configLocation" value="classpath*:mybatis.xml"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
     </bean>
 
 
@@ -113,7 +113,7 @@
     </aop:config>
 
     <!-- 开启显示事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven  />
 
 
 </beans>

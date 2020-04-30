@@ -28,6 +28,15 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+<!-- 定义Filter， 执行顺序由上到下执行 -->
+  <filter>
+    <filter-name>testFilter</filter-name>
+    <filter-class>com.jiang.core.filter.TestFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>testFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <servlet>
     <servlet-name>springMvc</servlet-name>

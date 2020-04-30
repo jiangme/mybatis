@@ -1,6 +1,7 @@
 package com.jiang.pojo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Setter
 @Getter
+@NoArgsConstructor
 public class UserInfo implements Serializable {
 
     private int id;
